@@ -1,0 +1,28 @@
+﻿
+input[type=text] {
+    border-radius: 3px;
+    border: 2px solid silver;
+    padding: 5px;
+    margin-left: 5px;
+    margin-right: 50px;
+}
+
+    input[type=text]:focus {
+        border: 2px solid #8c00ff;
+    }
+
+form #send {
+    float: left;
+    margin-top: 10px;
+    color: #1814d1;
+    font-size: 1.4em;
+    cursor: pointer;
+}
+
+    form #send:hover {
+        background-color: #d9e0ff;
+    }
+
+form input:focus {
+    border: 2px solid #8c00ff;
+}
