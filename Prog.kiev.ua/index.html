@@ -4,18 +4,22 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link href="styles/main.css" rel="stylesheet"/>
+    <link href="styles/main.css" rel="stylesheet" />
 </head>
 <body>
     <form action="" method="post">
         <label>First name:</label>
-        <input type="text" placeholder="Name">
+        <input id="name" type="text" placeholder="Name" value="Alex">
         <label>Last name:</label>
-        <input type="text" placeholder="Surname">
+        <input id="surname" type="text" placeholder="Surname" value="Pylypenko">
         <label>Age:</label>
-        <input type="number" placeholder="Age">
+        <input id="age" type="number" placeholder="Age" value="30">
         <br />
         <input type="submit" value="Send" id="send">
     </form>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
