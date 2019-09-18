@@ -7,16 +7,39 @@
     <link href="styles/main.css" rel="stylesheet" />
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" id="submitForm">
         <label>First name:</label>
-        <input id="name" type="text" placeholder="Name" value="Alex">
-        <label>Last name:</label>
-        <input id="surname" type="text" placeholder="Surname" value="Pylypenko">
+        <input id="name" type="text" placeholder="Name" value="">
+        <label>E-mail:</label>
+        <input id="email" type="email" placeholder="E-mail" value="">
         <label>Age:</label>
-        <input id="age" type="number" placeholder="Age" value="30">
+        <input id="age" type="number" placeholder="Age" value="">
+        <label>Picture:</label>
+        <input id="picture" type="url" placeholder="" value="">
         <br />
         <input type="submit" value="Send" id="send">
+        <br />
     </form>
+    <br /><br />
+
+    <div class="left">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <td>Username</td>
+                    <td>E-mail</td>
+                    <td>Age</td>
+                    <td>Picture</td>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="right">
+        <button id="delete">Delete</button>
+    </div>
+
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -26,3 +26,17 @@ form #send {
 form input:focus {
     border: 2px solid #8c00ff;
 }
+
+td {
+    width: 75px;
+    height: 75px;
+    text-align: center;
+}
+
+.left {
+    float: left;       
+}
+
+.right {
+    float: left;
+}
