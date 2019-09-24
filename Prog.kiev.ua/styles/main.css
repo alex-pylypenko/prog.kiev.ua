@@ -37,6 +37,8 @@ td {
     float: left;       
 }
 
-.right {
-    float: left;
+.remove-btn {
+    background: red;
+    color: white;
 }
+
