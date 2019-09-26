@@ -11,7 +11,7 @@ input {
         border: 2px solid #8c00ff;
     }
 
-form #send {
+form #submitBtn {
     float: left;
     margin-top: 10px;
     color: #1814d1;
@@ -19,7 +19,7 @@ form #send {
     cursor: pointer;
 }
 
-    form #send:hover {
+    form #submitBtn:hover {
         background-color: #d9e0ff;
     }
 
@@ -31,10 +31,6 @@ td {
     width: 75px;
     height: 75px;
     text-align: center;
-}
-
-.left {
-    float: left;       
 }
 
 .remove-btn {
