@@ -1,100 +1,102 @@
-﻿let getCurrencies = dateString => {
-    $.ajax({
-        url: `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json&date=${dateString}`,
-        success: (data) => {
-            let htmlStr = '';
-            for (let currency of data) {
-                htmlStr += `<tr>
-                    <td>${currency.txt}</td>
-                    <td>${currency.rate.toFixed(2)}</td>
-                </tr>`;
-            }
-            $('table tbody').html(htmlStr);
-        }
-    })
-};
 
-let getActualCurrency = function (dateString, textString) {
-    $.ajax({
-        url: `https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json&date=${dateString}`,
-        success: (data) => {
-            let htmlStr = '';          
-            for (let currency of data) {
-                let smallRegister_1 = currency.txt.toLowerCase();
-                let smallRegister_2 = textString.toLowerCase();
-                if ((smallRegister_1).includes(smallRegister_2)) {
-                    htmlStr += `<tr>
-                    <td>${currency.txt}</td>
-                    <td>${currency.rate.toFixed(2)}</td>
-                    </tr>`;
-                }               
-            }
-            $('table tbody').html(htmlStr);
-        }
-    })
-};
-
-let saveDate = dateStr => {
-    localStorage.setItem('dateStr', dateStr);
-};
-
-let getSavedDate = () => {
-    return localStorage.getItem('dateStr') || false;
-};
-
-$(document).ready(() => {
-    let savedDate = getSavedDate();
-    let thisDate;
-    if (savedDate) {
-        thisDate = savedDate;
-
-        let dateToPaste = savedDate.substring(0, 4) + '-' + savedDate.substring(4, 6) + '-' + savedDate.substring(6, 8);
-        $('#someInput').val(dateToPaste);
-    } else {
-        let dateNow = new Date();
-        let dateArr = [dateNow.getFullYear() + '', (+dateNow.getMonth() + 1) + '', (dateNow.getDate()) + ''];
+let countries = [];
 
 
-        if ((dateArr[1] + '').length < 2) {
-            dateArr[1] = '0' + dateArr[1];
-        }
-        if ((dateArr[2] + '').length < 2) {
-            dateArr[2] = '0' + dateArr[2];
-        }
-        thisDate = dateArr.join('');
+let renderCountriesHtml = (countries) => {
+    let htmlStr = '';
+    let countriesTranslation = {};
+
+    for (let country of countries) {
+        countriesTranslation[country['alpha3Code']] = country['name'];
     }
 
-    getCurrencies(thisDate);
+    for (let country of countries) {
 
-    $('#someInput').change(e => {
-        let dateStr = $(e.currentTarget).val();
-        if (dateStr) {
-            dateStr = dateStr.split('-').join('');
-            getCurrencies(dateStr);
-            saveDate(dateStr);
-        }
-    });
-
-    $('#go-up').click(() => {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth"
-        });
-    });
-
-
-    $('#search').change(e => {
-        let look_for = $(e.currentTarget).val();
-        let dateStr = $('#someInput').val();
-        if (dateStr) {
-            dateStr = dateStr.split('-').join('');
-            getActualCurrency(dateStr, look_for);
-            saveDate(dateStr);
+        country.borderNames = [];
+        for (let border of country.borders) {
+            country.borderNames.push(countriesTranslation[border])
         }
 
+
+        let currenciesArray = country.currencies.map(currencyObj => currencyObj.name);
+        let languagesArr = country.languages.map(languageObj => languageObj.name);
+        htmlStr += `<tr>
+            <td>${country.name}</td>
+            <td>${country.capital}</td>
+            <td>${country.region}</td>
+            <td>${country.population}</td>
+            <td>${country.area}</td>
+            <td>${currenciesArray.join(', ')}</td>
+            <td><img height="50" src="${country.flag}"></td>
+            <td>${languagesArr.join(', ')}</td>
+            <td>${country.borderNames.join(', ')}</td>
+        </tr>`;
+    }
+    $('table.countries tbody').html(htmlStr);
+};
+
+let loadCountries = e => {
+    $.ajax({
+        method: 'GET',
+        url: 'https://restcountries.eu/rest/v2/all',
+        success: (response) => {
+            countries = response;
+            renderCountriesHtml(response);
+        }
     });
+};
 
 
+let getActualCountry = textString => {
+    $.ajax({
+        url: `https://restcountries.eu/rest/v2/all`,
+        success: (data) => {
+            let htmlStr = '';
+            let countriesTranslation = {};
+
+            for (let country of countries) {
+                countriesTranslation[country['alpha3Code']] = country['name'];
+            }
+
+            for (let country of data) {
+                let smallRegister_name = country.name.toLowerCase();
+                let smallRegister_capital = country.capital.toLowerCase();
+                let smallRegister_str = textString.toLowerCase();
+                if ((smallRegister_name).includes(smallRegister_str) || (smallRegister_capital).includes(smallRegister_str)) {
+
+                    country.borderNames = [];
+                    for (let border of country.borders) {
+                        country.borderNames.push(countriesTranslation[border])
+                    }
+
+                    let currenciesArray = country.currencies.map(currencyObj => currencyObj.name);
+                    let languagesArr = country.languages.map(languageObj => languageObj.name);
+
+                    htmlStr += `<tr>
+                    <td>${country.name}</td>
+                    <td>${country.capital}</td>
+                    <td>${country.region}</td>
+                    <td>${country.population}</td>
+                    <td>${country.area}</td>
+                    <td>${currenciesArray.join(', ')}</td>
+                    <td><img height="50" src="${country.flag}"></td>
+                    <td>${languagesArr.join(', ')}</td>
+                    <td>${country.borderNames.join(', ')}</td>
+                    </tr>`;
+                }
+            }
+            $('table tbody').html(htmlStr);
+        }
+    })
+};
+
+
+
+loadCountries();
+
+
+$('#search').keyup(e => {
+    let look_for = $(e.currentTarget).val();
+    getActualCountry(look_for);
 });
 
