@@ -1,4 +1,53 @@
-﻿
+﻿body
+{
+}
+
+.wrapper {
+    background-color: #adadad;
+    width: 90%;
+    height: 600px;
+    margin-left: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.products {
+    background-color: #a1e4ff;
+    width: 60%;
+    height: 100%;
+    margin-left: 5%;
+    float: left;
+}
+
+.cart {
+    background-color: #dbf4ff;
+    width: 25%;
+    height: 100%;
+    margin-left: 5%;
+    float: left;
+    text-align: center;
+    font-size: 2em;
+}
+ol {
+    text-align: left;
+}
+
+.single_product {
+    width: 23%;
+    height: 47%;
+    float: left;
+    border: 2px solid black;
+    margin-left: 1.2%;
+    margin-top: 1%;
+    text-align: center;
+    font-weight: 700;
+}
+
+.form {
+    margin-left: 5%;
+}
+
+
 input {
     border-radius: 3px;
     border: 2px solid silver;
@@ -27,14 +76,19 @@ form input:focus {
     border: 2px solid #8c00ff;
 }
 
-td {
-    width: 75px;
-    height: 75px;
-    text-align: center;
-}
-
 .remove-btn {
     background: red;
     color: white;
 }
 
+.image_ {
+    width: 150px;
+    height: 150px;
+}
+
+.add_to_cart {
+    background-color: green;
+    border-radius: 20px;
+    font-size: 1.5em;
+    color: white;
+}

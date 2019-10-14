@@ -4,33 +4,40 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link href="styles/main.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet"/>
 </head>
 <body>
-    <div>
-        
-        <input id="search" type="text" placeholder="country or capital"/>
-        <br /><br />
-        <table border="1" class="countries">
-            <thead>
-                <tr>
-                    <td>Name of country</td>
-                    <td>Capital</td>
-                    <td>Region</td>
-                    <td>Population</td>
-                    <td>Square</td>
-                    <td>Currencies</td>
-                    <td>Flag</td>
-                    <td>Languages</td>
-                    <td>Neighbors</td>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-
+    <div class="wrapper">
+        <div class="products">
+            
+        </div>
+        <div class="cart">
+            Cart 
+            <br id="br"/> 
+            <span></span>
+            <ol>
+                    
+            </ol>
+        </div>
     </div>
+    <br />
+    <div class="form">
+        <form action="" method="post" id="addProduct">
+            <label>Brand:</label>
+            <input id="brand" type="text" placeholder="Brand" value="">
+            <label>Name:</label>
+            <input id="name" type="text" placeholder="Name" value="">
+            <label>Price:</label>
+            <input id="price" type="number" placeholder="Price" value="">
+            <label>Picture:</label>
+            <input id="picture" type="url" placeholder="" value="">
+            <br />
+            <input type="submit" value="Add new product" id="submitBtn">
+            <br />
+        </form>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="scripts/main.js"></script>
 </body>
 </html>
