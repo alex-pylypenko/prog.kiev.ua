@@ -1,5 +1,119 @@
 
 let products = [];
+let arrStorage = [];
+
+
+class Products {
+    constructor(brand, name, price, picture) {
+        this.brand = brand;
+        this.name = name;
+        this.price = price;
+        this.picture = picture;
+    }
+
+    get productAdd() {
+        return `${this.brand} ${this.name} ${this.price}`;
+    }
+};
+
+class Users {
+    constructor(name) {
+        this.name = name;
+        this.cart = [];
+    }
+
+    addCart(product) {
+        this.cart.push(product);
+    }
+
+    showCart() {
+        console.table(this.cart);
+    }
+}
+
+let user = new Users('Alex');
+
+let addProduct = e => {
+
+    e.preventDefault();
+    let htmlStr = ``;
+
+    let prod = new Products($('#brand').val(), $('#name').val(), +$('#price').val(), $('#picture').val());
+
+    //if (!prod.brand || !prod.name || !prod.price || !prod.picture) {
+    //    alert('Fill all fields');
+    //    return;
+    //}
+
+    arrStorage.push(prod.productAdd);
+
+    htmlStr +=
+        `<div class="single_product">
+            <img src="${prod.picture}" class="image_">
+            <br><br>
+            ${prod.brand}
+            ${prod.name}
+            <br><br>
+            ${prod.price}$
+            <br><br>
+            <button class="add_to_cart">Add to cart</button>
+        </div>`;
+
+    if (products.length < 8) {
+        products.push(htmlStr);
+    } else {
+        alert("You can have only 8 products");
+    }
+
+    $('#brand, #name, #price, #picture').val('');
+    $('div.wrapper div.products').html(products);
+
+
+};
+
+let renderSingleProduct = function (arrStorage, index) {
+    let htmlStr = ``;
+    htmlStr +=
+        `
+        <li>${arrStorage[index]}       
+        <button class="remove-btn">X</button>
+        </li>
+    `;
+    user.addCart(htmlStr);
+    $('div.wrapper div.cart ol').html(user.cart);
+}
+
+
+let addToCart = e => {
+    if (user.cart.length < 1) {
+        $('span').html(`${user.name}, you are going to buy:`);
+    }
+
+    if ($(e.target).hasClass('add_to_cart')) {
+        let productToAddIndex = $(e.target).parents('div').index();
+        renderSingleProduct(arrStorage, productToAddIndex);
+    }
+    
+};
+
+let deleteProduct = e => {
+    if ($(e.target).hasClass('remove-btn')) {
+        let productToRemoveIndex = $(e.target).parents('li').index();
+        user.cart.splice(productToRemoveIndex, 1);
+        $('div.wrapper div.cart ol').html(user.cart);
+    }
+};
+
+
+
+$('#submitBtn').on('click', addProduct);
+$('div.wrapper div.products').on('click', addToCart);
+$('div.wrapper div.cart ol').on('click', deleteProduct);
+
+
+
+/*
+let products = [];
 let cart = [];
 let arrStorage = [];
 
@@ -102,7 +216,7 @@ $('#submitBtn').on('click', addProduct);
 $('div.wrapper div.products').on('click', addToCart);
 $('div.wrapper div.cart ol').on('click', deleteProduct);
 
-
+*/
 
 
 
